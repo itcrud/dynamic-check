@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minuor.dynamic.check.dao.mapper.DynamicCheckRuleMapper">
+
+    <select id="queryRuleByBeanName" resultType="com.minuor.dynamic.check.dao.model.DynamicCheckRuleModel">
+        SELECT
+        tr.rule_express,
+        tr.toast_msg,
+        br.field_name,
+        temp.template_id,
+        br.field_desc,
+        temp.check_level
+        FROM
+        t_bean_rule_info br,
+        t_template_info temp,
+        t_template_rule_info tr
+        WHERE
+        bean_id = #{beanName}
+        AND temp.template_id = tr.template_id
+        AND br.rule_id = tr.rule_id
+        AND temp.template_status = 1
+        AND tr.rule_status = 1
+        AND br.check_status = 1
+    </select>
+</mapper>
